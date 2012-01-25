@@ -3,6 +3,7 @@
 // @namespace      flashback
 // @description    Skriptet för dig som önskar att Flashback var så mycket mera
 // @include        https://www.flashback.org/*
+// @version        0.1
 // ==/UserScript==
 
 /*! jQuery v1.7.1 jquery.com | jquery.org/license */
