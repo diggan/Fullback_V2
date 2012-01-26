@@ -17,10 +17,10 @@ Ta bort toppen av forumet, där Flashback, katten och lite siffror syns.
 Stannar GIF-bilder så man slipper massa blinkande saker hela tiden.
 
 ###checkPM
-Du behöver inte uppdatera sidan för att se om du fått nya PM
+Du behöver inte uppdatera sidan för att se om du fått nya PM.
 
 ###floationTabs
-Raden där logga ut, heta ämnen, PM-ikonen och nya ämnen finns följer med när du scrollar
+Raden där logga ut, heta ämnen, PM-ikonen och nya ämnen finns följer med när du scrollar.
 
 ###checkQuote
 Skapar en liten popup när du blir citerad.
@@ -29,7 +29,10 @@ Skapar en liten popup när du blir citerad.
 Fixar så man slipper se Axl varje gång man klickar på en utgående länk.
 
 ###myPostInThread
-Lägger till en länk för att lätt kunna söka efter dina egna inlägg i en tråd
+Lägger till en länk för att lätt kunna söka efter dina egna inlägg i en tråd.
+
+###hetaAmnenMod
+Tillåter dig att ändra vilka av de olika kategorierna på heta ämnen som ska visas.
 
 ##Version
 
