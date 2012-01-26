@@ -33,6 +33,7 @@ $(document).ready(function() {
 							<input type="checkbox" id="checkQuote"/> checkQuote\
 							<input type="checkbox" id="fixLinks"/> fixLinks\
 							<input type="checkbox" id="myPostInThread"/> myPostInThread\
+							<input type="checkbox" id="hetaAmnenMod"/> hetaAmnenMod\
 							<div style="position:absolute; bottom:5px; width: 200px; left: 50%; margin-left: -100px; text-align: center;"><a href="#" id="closeToolboxSettings">Spara, stäng och ladda om sidan</a></div>\
 							</div>';
 	$('body').prepend(settingsDialog);
@@ -56,6 +57,8 @@ $(document).ready(function() {
 		$('#fixLinks').attr('checked','checked');
 	if($.cookie('myPostInThread') == "true")
 		$('#myPostInThread').attr('checked','checked');	
+	if($.cookie('hetaAmnenMod') == "true")
+		$('#hetaAmnenMod').attr('checked','checked');	
 		
 	//Remove #top
 	if($.cookie('removeTop') == "true")
@@ -168,7 +171,10 @@ $(document).ready(function() {
 				$('tr[valign^="bottom"]:last').prepend('<td class="alt1" style="white-space:nowrap;padding:0 !important;"><a href="https://www.flashback.org/find_posts_by_user.php?userid='+profileId+'&threadid='+threadId+'" class="doaction">Mina inlägg i denna tråd</a></td>');
 			}
 		}
-
+		//Enables users to mod heta-amnen
+		if($.cookie('hetaAmnenMod') == "true") {
+		
+		}
 		//End of document ready
 	}
 
@@ -218,7 +224,11 @@ $(document).ready(function() {
 		} else {
 			$.cookie('myPostInThread', 'false');
 		}
-
+		if ($('#hetaAmnenMod').attr('checked')) {
+			$.cookie('hetaAmnenMod', 'true');
+		} else {
+			$.cookie('hetaAmnenMod', 'false');
+		}
 		$('#settingsDialog').fadeOut('Slow', function(){
 			$('#backgroundCover').fadeOut('Slow', function(){
 				$('body').css('overflow', 'auto');
