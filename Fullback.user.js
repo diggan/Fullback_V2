@@ -59,12 +59,6 @@ $(document).ready(function() {
 		$('#sendModeratorPM').attr('checked','checked');*/
 	if($.cookie('myPostInThread') == "true")
 		$('#myPostInThread').attr('checked','checked');	
-	//TODO Fix thread preview
-	/*	Checkbox code:
-		<input type="checkbox" id="threadPreview"> threadPreview\
-	*/
-	/*if($.cookie('threadPreview') == "true")
-		$('#threadPreview').attr('checked','checked');*/
 		
 	//Remove #top
 	if($.cookie('removeTop') == "true")
@@ -192,15 +186,6 @@ $(document).ready(function() {
 				$('tr[valign^="bottom"]:last').prepend('<td class="alt1" style="white-space:nowrap;padding:0 !important;"><a href="https://www.flashback.org/find_posts_by_user.php?userid='+profileId+'&threadid='+threadId+'" class="doaction">Mina inlägg i denna tråd</a></td>');
 			}
 		}
-		
-		//TODO Fix thread preview
-		/*if($.cookie('threadPreview') == "true") {
-			var currentPage = location.pathname;
-			currentPage = currentPage.substring(0,2);
-			if(currentPage == "/f") {
-				console.log('Page is subforum');
-			}
-		}*/
 
 		//End of document ready
 	}
@@ -256,12 +241,6 @@ $(document).ready(function() {
 		} else {
 			$.cookie('myPostInThread', 'false');
 		}
-		//TODO Fix thread preview
-		/*if ($('#threadPreview').attr('checked')) {
-			$.cookie('threadPreview', 'true');
-		} else {
-			$.cookie('threadPreview', 'false');
-		}*/
 
 		$('#settingsDialog').fadeOut('Slow', function(){
 			$('#backgroundCover').fadeOut('Slow', function(){
@@ -272,33 +251,4 @@ $(document).ready(function() {
 		if(debug)
 			console.log('Save and exit!');	
 	});
-	//TODO Fix thread preview
-	/*if(currentPage == "/f") {
-		$('a').mouseover(function(){
-			var aLink = $(this).attr('href');
-			var linkId = $(this).attr('id');
-			var currentLink = $(this);
-
-				if(aLink.substring(0,2) == "/t") {
-					console.log("aLink: "+aLink);
-					console.log("linkId: "+linkId);
-					if(!$(currentLink).attr('title'))
-						$(currentLink).attr('title', 'Laddar förhanstitt');
-
-					if(linkId) {
-						$.ajax({
-							url: "https://www.flashback.org"+aLink,
-							success: function(data){
-								var $response=$(data);
-								//query the jq object for the values
-								var threadStart = $response.find('div[id^="post_message"]:first').text();
-								threadStart = threadStart.substring(0,50);
-								$(currentLink).attr('title', threadStart);
-								console.log(threadStart);
-							}
-						});
-					}
-				}
-		});
-	}*/
 });
