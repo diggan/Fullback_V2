@@ -32,7 +32,6 @@ $(document).ready(function() {
 							<input type="checkbox" id="floatingTabs"/> floatingTabs\
 							<input type="checkbox" id="checkQuote"/> checkQuote\
 							<input type="checkbox" id="fixLinks"/> fixLinks\
-							<!--<input type="checkbox" id="sendModeratorPM"/> sendModeratorPM-->\
 							<input type="checkbox" id="myPostInThread"/> myPostInThread\
 							<div style="position:absolute; bottom:5px; width: 200px; left: 50%; margin-left: -100px; text-align: center;"><a href="#" id="closeToolboxSettings">Spara, stäng och ladda om sidan</a></div>\
 							</div>';
@@ -55,8 +54,6 @@ $(document).ready(function() {
 		$('#checkQuote').attr('checked','checked');
 	if($.cookie('fixLinks') == "true")
 		$('#fixLinks').attr('checked','checked');
-	/*if($.cookie('sendModeratorPM') == "true")
-		$('#sendModeratorPM').attr('checked','checked');*/
 	if($.cookie('myPostInThread') == "true")
 		$('#myPostInThread').attr('checked','checked');	
 		
@@ -156,21 +153,6 @@ $(document).ready(function() {
 				}
 			});
 		}
-		//Send the moderators in the forum a PM
-		/*if($.cookie('sendModeratorPM') == "true") {
-			var currentPage = location.pathname;
-			var link = "https://www.flashback.org/private.php?do=newpm";
-			currentPage = currentPage.substring(0,2);
-			if(currentPage == "/f") {
-				$('.tcat a').each(function(index) {
-					var moderator = $(this).attr('href').substring(2);
-					link += "&userid[]="+moderator;
-					//console.log(link);
-
-				});
-				$('.tcat').append('<a href="'+link+'" style="float: right;">Skicka PM till alla moderatorer i denna forumdel</a>');
-			}
-		}*/
 
 		//Creates a link to all my posts in the current thread
 		if($.cookie('myPostInThread') == "true") {
@@ -231,11 +213,6 @@ $(document).ready(function() {
 		} else {
 			$.cookie('fixLinks', 'false');
 		}
-		/*if ($('#sendModeratorPM').attr('checked')) {
-			$.cookie('sendModeratorPM', 'true');
-		} else {
-			$.cookie('sendModeratorPM', 'false');
-		}*/
 		if ($('#myPostInThread').attr('checked')) {
 			$.cookie('myPostInThread', 'true');
 		} else {
