@@ -173,7 +173,29 @@ $(document).ready(function() {
 		}
 		//Enables users to mod heta-amnen
 		if($.cookie('hetaAmnenMod') == "true") {
-		
+			var currentPage = location.pathname;
+			if(currentPage == "/heta-amnen"){
+				var hetaAmnenModVar = 'Kryssa i de kategorier du vill visa.\
+					<input type="checkbox" id="aktuellt" class="hetaAmnenMod" checked="checked"/>Aktuella händelser\
+					<input type="checkbox" id="ovrigt" class="hetaAmnenMod" checked="checked"/>Övriga\
+					<input type="checkbox" id="aldre" class="hetaAmnenMod" checked="checked"/>äldre än en månad\
+				<hr/>';
+
+				$('div[style="padding-top:10px"]').prepend(hetaAmnenModVar);
+				
+				if($.cookie('aktuellt') == "false") {
+					$('#aktuellt').attr('checked',null);
+					$('#threadslist:nth-child(1)').hide();
+				}
+				if($.cookie('ovrigt') == "false"){
+					$('#ovrigt').attr('checked',null);
+					$('#threadslist:nth-child(2)').hide();
+				}
+				if($.cookie('aldre') == "false"){
+					$('#aldre').attr('checked',null);
+					$('#threadslist:nth-child(3)').hide();
+				}
+			}
 		}
 		//End of document ready
 	}
@@ -237,5 +259,54 @@ $(document).ready(function() {
 		});
 		if(debug)
 			console.log('Save and exit!');	
+	});
+
+	$(".hetaAmnenMod").change( function(){
+		var hetaAmnenModCheckbox = $(this).attr('id');
+
+		if($(this).is(':checked')) {
+			if(debug)
+				console.log('Checked '+hetaAmnenModCheckbox);
+			
+			switch(hetaAmnenModCheckbox)
+			{
+			case "aktuellt":
+				$.cookie('aktuellt', 'true');
+				$('#threadslist:nth-child(1)').show();
+				break;
+			case "ovrigt":
+				$.cookie('ovrigt', 'true');
+				$('#threadslist:nth-child(2)').show();
+				break;
+			case "aldre":
+				$.cookie('aldre', 'true');
+				$('#threadslist:nth-child(3)').show();
+				break;
+			default:
+				console.log('Fel i hetaAmnenMod');
+			}
+			window.scrollTo(0, document.body.scrollHeight);
+		} else {
+			if(debug)
+				console.log('Unchecked '+hetaAmnenModCheckbox);
+			
+			switch(hetaAmnenModCheckbox)
+			{
+			case "aktuellt":
+				$.cookie('aktuellt', 'false');
+				$('#threadslist:nth-child(1)').hide();
+				break;
+			case "ovrigt":
+				$.cookie('ovrigt', 'false');
+				$('#threadslist:nth-child(2)').hide();
+				break;
+			case "aldre":
+				$.cookie('aldre', 'false');
+				$('#threadslist:nth-child(3)').hide();
+				break;
+			default:
+				console.log('Fel i hetaAmnenMod');
+			}
+		}
 	});
 });
