@@ -54,3 +54,6 @@ Första versionen.
 - Funktion för att kunna navigera Flashback med tangentbordet
 - Snabbpost (med gräns på antal bokstäver som krävs)
 - Toppknapp i menybaren som följer med i toppen
+- Visa bilder direkt i tråden eller visa med knapp
+- Fler inlägg än 40 stycken per sida
+- Visa automatiskt nästa sida
