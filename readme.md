@@ -42,6 +42,7 @@ Första versionen.
 ##TODO
 
 - DONE Ändra vilka delar heta ämnen visar med checkboxes
+- DONE Visa en introduktion första gången man laddar Flashback när skriptet är installerat
 
 - checkQuote ger felaktigt ut att nytt citat finns när det inte gör det
 - Funktion att dölja inlägg som understiger ett visst antal bokstäver
@@ -57,4 +58,4 @@ Första versionen.
 - Visa bilder direkt i tråden eller visa med knapp
 - Fler inlägg än 40 stycken per sida
 - Visa automatiskt nästa sida
-- Visa en introduktion första gången man laddar Flashback när skriptet är installerat
+- Göra en finare konfigureringsruta

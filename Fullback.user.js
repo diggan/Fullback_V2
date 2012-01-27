@@ -42,6 +42,19 @@ $(document).ready(function() {
 	//Add mod toolbox href
 	$('.top-menu-sub').append('<li class="l2"><a href="#" id="openToolboxSettings">Fullback</a></li>');
 
+	//Intro popup
+	if($.cookie('intro') == null) {
+		console.log('Första gången');
+		var controlPosition = $('ul.top-menu-main li.l0').offset();
+		var controlLeft = controlPosition.left - 30;
+		console.log(controlPosition);
+		$('body').prepend('<img src="http://i.imgur.com/Tn8De.png" style="position: absolute; top: 30px; left: '+controlLeft+'px;" width="100"/>');
+		$('body').prepend('<div style="background-color: #004C4C; position: absolute; z-index: 1; top: 130px; width: 100px; padding: 5px; color: white; left: '+controlLeft+'px;">Du hittar länken till Fullback här</div>');
+		$('#openToolboxSettings').css('background-color', '#004C4C')
+		$('#openToolboxSettings').css('color', 'white')
+		$.cookie('intro', 'T');
+	}
+
 	//Set checkboxes accordingly
 	if($.cookie('removeTop') == "true")
 		$('#removeTop').attr('checked','checked');
@@ -59,7 +72,6 @@ $(document).ready(function() {
 		$('#myPostInThread').attr('checked','checked');	
 	if($.cookie('hetaAmnenMod') == "true")
 		$('#hetaAmnenMod').attr('checked','checked');	
-		
 	//Remove #top
 	if($.cookie('removeTop') == "true")
 		$('#top').remove();
