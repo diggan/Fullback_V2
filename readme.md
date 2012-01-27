@@ -43,9 +43,9 @@ Första versionen.
 
 - DONE Ändra vilka delar heta ämnen visar med checkboxes
 
-- checkQuote ger felaktigt ut att nytt citat finns när det inte gör det.
-- Funktion att dölja inlägg som understiger ett visst antal bokstäver.
-- Möjlighet att tagga användare med egna taggar.
+- checkQuote ger felaktigt ut att nytt citat finns när det inte gör det
+- Funktion att dölja inlägg som understiger ett visst antal bokstäver
+- Möjlighet att tagga användare med egna taggar
 - Möjlighet att spara inlägg (användarnamn+salt+md5 för att göra ett försök att dölja dem för andra)
 - Funktion att automatiskt göra en länk till användarens profil och lägga citat i spoiler genom att skriva @användarnamn
 - Citera deluxe - markera det du vill citera och trycka på citera extra och bara markeringen citeras
@@ -57,3 +57,4 @@ Första versionen.
 - Visa bilder direkt i tråden eller visa med knapp
 - Fler inlägg än 40 stycken per sida
 - Visa automatiskt nästa sida
+- Visa en introduktion första gången man laddar Flashback när skriptet är installerat
