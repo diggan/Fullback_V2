@@ -36,6 +36,9 @@ Tillåter dig att ändra vilka av de olika kategorierna på heta ämnen som ska 
 
 ##Version
 
+###0.1.1
+Nytt är fixLinks, myPostInThread, hetaAmnenMod och ett antal buggfixar när det gäller checkQuote. Funktionen är dock inte helt failsafe ännu.
+
 ###0.1
 Första versionen.
 
