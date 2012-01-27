@@ -3,6 +3,7 @@
 Fullback V2 är en ny version av Fullback med omgjord kod för att även stödja Chrome.
 
 Du kommer åt konfigurationspopupen genom att hålla musen vid verktygsikonen uppe till höger och välja "Fullback".
+En pil visar även hur du kommer åt Fullback. Funktionen använder kakor.
 
 Skriptet är i ett tidigt stadie och säg gärna till om du vill ha nya funktioner eller om befintliga funktioner inte fungerar korrekt i din webbläsare.
 
