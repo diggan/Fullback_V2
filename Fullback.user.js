@@ -152,6 +152,7 @@ $(document).ready(function() {
 				  }
 			});
 		}, updateTime);
+	}
 
 		//Fix links
 		if($.cookie('fixLinks') == "true") {
@@ -185,6 +186,7 @@ $(document).ready(function() {
 		}
 		//Enables users to mod heta-amnen
 		if($.cookie('hetaAmnenMod') == "true") {
+			console.log('Heta amnen mod active');
 			var currentPage = location.pathname;
 			if(currentPage == "/heta-amnen"){
 				var hetaAmnenModVar = 'Kryssa i de kategorier du vill visa.\
@@ -210,7 +212,7 @@ $(document).ready(function() {
 			}
 		}
 		//End of document ready
-	}
+	
 
 	//openToolboxSettings
 	$('#openToolboxSettings').click(function(){
