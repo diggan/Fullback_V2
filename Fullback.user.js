@@ -35,6 +35,7 @@ $(document).ready(function() {
 							<input type="checkbox" id="myPostInThread"/> myPostInThread\
 							<input type="checkbox" id="hetaAmnenMod"/> hetaAmnenMod\
 							<div style="position:absolute; bottom:5px; width: 200px; left: 50%; margin-left: -100px; text-align: center;"><a href="#" id="closeToolboxSettings">Spara, stäng och ladda om sidan</a></div>\
+							<div style="position:absolute; bottom:5px; width: 200px; right: 10px; text-align: right;"><a href="#" id="forceCloseToolboxSettings">Stäng</a></div>\
 							</div>';
 	$('body').prepend(settingsDialog);
 	$('body').prepend('<div id="backgroundCover" style="display: none; background-color: black; width: 100%; height: 100%; position: absolute; z-index: 11; opacity:0.9; filter:alpha(opacity=90);"> </div>');
@@ -322,5 +323,13 @@ $(document).ready(function() {
 				console.log('Fel i hetaAmnenMod');
 			}
 		}
+	});
+
+	$('#forceCloseToolboxSettings').click(function(){
+		$('#settingsDialog').fadeOut('Slow', function(){
+			$('#backgroundCover').fadeOut('Slow', function(){
+				$('body').css('overflow', 'auto');
+			});
+		});
 	});
 });
