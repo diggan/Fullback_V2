@@ -16,7 +16,11 @@ jQuery.cookie=function(a,b,c){if(arguments.length>1&&(b===null||typeof b!=="obje
 
 //Debug-mode
 var debug = true;
+//When to update
 var updateTime = 10000;
+
+//Local version
+var versionLocal = "0.1.1";
 
 // When page have loaded
 $(document).ready(function() {
@@ -73,6 +77,7 @@ $(document).ready(function() {
 		$('#myPostInThread').attr('checked','checked');	
 	if($.cookie('hetaAmnenMod') == "true")
 		$('#hetaAmnenMod').attr('checked','checked');	
+	
 	//Remove #top
 	if($.cookie('removeTop') == "true")
 		$('#top').remove();
@@ -155,65 +160,63 @@ $(document).ready(function() {
 		}, updateTime);
 	}
 
-		//Fix links
-		if($.cookie('fixLinks') == "true") {
-			$('a').each(function(index) {
-				var aLink = $(this).attr('href');
-				if(aLink) {
-					if(aLink.indexOf("leave.php?u=") > 0) {
-						aLink = aLink.substring(38);
-						$(this).attr('href', decodeURIComponent(aLink));
-						if(debug)
-							console.log("Fixed this link: "+$(this).prop('href'));
-					}
-
+	//Fix links
+	if($.cookie('fixLinks') == "true") {
+		$('a').each(function(index) {
+			var aLink = $(this).attr('href');
+			if(aLink) {
+				if(aLink.indexOf("leave.php?u=") > 0) {
+					aLink = aLink.substring(38);
+					$(this).attr('href', decodeURIComponent(aLink));
+					if(debug)
+						console.log("Fixed this link: "+$(this).prop('href'));
 				}
-			});
+
+			}
+		});
+	}
+
+	//Creates a link to all my posts in the current thread
+	if($.cookie('myPostInThread') == "true") {
+		var currentPage = location.pathname;
+		currentPage = currentPage.substring(0,2);
+		if((currentPage == "/p") || (currentPage == "/t")) {
+			var threadId = $('.navbar strong a:first').attr('href').substring(2);
+			var profileId = $('.top-menu-sub li:nth-child(2) a').attr('href').substring(2);
+			if(debug) {
+				console.log('Current threadId: '+threadId);
+				console.log('Current profileId: '+profileId);
+			}
+			$('tr[valign^="bottom"]:last').prepend('<td class="alt1" style="white-space:nowrap;padding:0 !important;"><a href="https://www.flashback.org/find_posts_by_user.php?userid='+profileId+'&threadid='+threadId+'" class="doaction">Mina inlägg i denna tråd</a></td>');
 		}
+	}
+	//Enables users to mod heta-amnen
+	if($.cookie('hetaAmnenMod') == "true") {
+		console.log('Heta amnen mod active');
+		var currentPage = location.pathname;
+		if(currentPage == "/heta-amnen"){
+			var hetaAmnenModVar = 'Kryssa i de kategorier du vill visa.\
+				<input type="checkbox" id="aktuellt" class="hetaAmnenMod" checked="checked"/>Aktuella händelser\
+				<input type="checkbox" id="ovrigt" class="hetaAmnenMod" checked="checked"/>Övriga\
+				<input type="checkbox" id="aldre" class="hetaAmnenMod" checked="checked"/>äldre än en månad\
+			<hr/>';
 
-		//Creates a link to all my posts in the current thread
-		if($.cookie('myPostInThread') == "true") {
-			var currentPage = location.pathname;
-			currentPage = currentPage.substring(0,2);
-			if((currentPage == "/p") || (currentPage == "/t")) {
-				var threadId = $('.navbar strong a:first').attr('href').substring(2);
-				var profileId = $('.top-menu-sub li:nth-child(2) a').attr('href').substring(2);
-				if(debug) {
-					console.log('Current threadId: '+threadId);
-					console.log('Current profileId: '+profileId);
-				}
-				$('tr[valign^="bottom"]:last').prepend('<td class="alt1" style="white-space:nowrap;padding:0 !important;"><a href="https://www.flashback.org/find_posts_by_user.php?userid='+profileId+'&threadid='+threadId+'" class="doaction">Mina inlägg i denna tråd</a></td>');
+			$('div[style="padding-top:10px"]').prepend(hetaAmnenModVar);
+			
+			if($.cookie('aktuellt') == "false") {
+				$('#aktuellt').attr('checked',null);
+				$('#threadslist:nth-child(1)').hide();
+			}
+			if($.cookie('ovrigt') == "false"){
+				$('#ovrigt').attr('checked',null);
+				$('#threadslist:nth-child(2)').hide();
+			}
+			if($.cookie('aldre') == "false"){
+				$('#aldre').attr('checked',null);
+				$('#threadslist:nth-child(3)').hide();
 			}
 		}
-		//Enables users to mod heta-amnen
-		if($.cookie('hetaAmnenMod') == "true") {
-			console.log('Heta amnen mod active');
-			var currentPage = location.pathname;
-			if(currentPage == "/heta-amnen"){
-				var hetaAmnenModVar = 'Kryssa i de kategorier du vill visa.\
-					<input type="checkbox" id="aktuellt" class="hetaAmnenMod" checked="checked"/>Aktuella händelser\
-					<input type="checkbox" id="ovrigt" class="hetaAmnenMod" checked="checked"/>Övriga\
-					<input type="checkbox" id="aldre" class="hetaAmnenMod" checked="checked"/>äldre än en månad\
-				<hr/>';
-
-				$('div[style="padding-top:10px"]').prepend(hetaAmnenModVar);
-				
-				if($.cookie('aktuellt') == "false") {
-					$('#aktuellt').attr('checked',null);
-					$('#threadslist:nth-child(1)').hide();
-				}
-				if($.cookie('ovrigt') == "false"){
-					$('#ovrigt').attr('checked',null);
-					$('#threadslist:nth-child(2)').hide();
-				}
-				if($.cookie('aldre') == "false"){
-					$('#aldre').attr('checked',null);
-					$('#threadslist:nth-child(3)').hide();
-				}
-			}
-		}
-		//End of document ready
-	
+	}
 
 	//openToolboxSettings
 	$('#openToolboxSettings').click(function(){
