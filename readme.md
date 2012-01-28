@@ -3,6 +3,7 @@
 Fullback V2 är en ny version av Fullback med omgjord kod för att även stödja Chrome.
 
 Du kommer åt konfigurationspopupen genom att hålla musen vid verktygsikonen uppe till höger och välja "Fullback".
+En pil visar även hur du kommer åt Fullback. Funktionen använder kakor.
 
 Skriptet är i ett tidigt stadie och säg gärna till om du vill ha nya funktioner eller om befintliga funktioner inte fungerar korrekt i din webbläsare.
 
@@ -35,6 +36,9 @@ Lägger till en länk för att lätt kunna söka efter dina egna inlägg i en tr
 Tillåter dig att ändra vilka av de olika kategorierna på heta ämnen som ska visas.
 
 ##Version
+
+###0.1.1
+Nytt är fixLinks, myPostInThread, hetaAmnenMod och ett antal buggfixar när det gäller checkQuote. Funktionen är dock inte helt failsafe ännu.
 
 ###0.1
 Första versionen.
