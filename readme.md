@@ -64,3 +64,4 @@ Första versionen.
 - Visa automatiskt nästa sida
 - Göra en finare konfigureringsruta
 - Visa en notice om det finns en uppdatering tillgänglig
+- Möjlighet att söka på valfri term med samma funktionalitet som checkQuote
