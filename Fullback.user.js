@@ -52,7 +52,7 @@ $(document).ready(function() {
 		$('body').prepend('<div style="background-color: #004C4C; position: absolute; z-index: 1; top: 130px; width: 100px; padding: 5px; color: white; left: '+controlLeft+'px;">Du hittar länken till Fullback här</div>');
 		$('#openToolboxSettings').css('background-color', '#004C4C')
 		$('#openToolboxSettings').css('color', 'white')
-		$.cookie('intro', 'T');
+		$.cookie('intro', 'T', { expires: 1000 });
 	}
 
 	//Set checkboxes accordingly
@@ -226,44 +226,44 @@ $(document).ready(function() {
 
 	$('#closeToolboxSettings').click(function(){
 		if ($('#removeTop').attr('checked')) {
-			$.cookie('removeTop', 'true');
+			$.cookie('removeTop', 'true', { expires: 1000 });
 		} else {
-			$.cookie('removeTop', 'false');
+			$.cookie('removeTop', 'false', { expires: 1000 });
 		}
 		if ($('#stopGif').attr('checked')) {
-			$.cookie('stopGif', 'true');
+			$.cookie('stopGif', 'true', { expires: 1000 });
 		} else {
-			$.cookie('stopGif', 'false');
+			$.cookie('stopGif', 'false', { expires: 1000 });
 		}
 		if ($('#checkPM').attr('checked')) {
-			$.cookie('checkPM', 'true');
+			$.cookie('checkPM', 'true', { expires: 1000 });
 		} else {
-			$.cookie('checkPM', 'false');
+			$.cookie('checkPM', 'false', { expires: 1000 });
 		}
 		if ($('#floatingTabs').attr('checked')) {
-			$.cookie('floatingTabs', 'true');
+			$.cookie('floatingTabs', 'true', { expires: 1000 });
 		} else {
-			$.cookie('floatingTabs', 'false');
+			$.cookie('floatingTabs', 'false', { expires: 1000 });
 		}
 		if ($('#checkQuote').attr('checked')) {
-			$.cookie('checkQuote', 'true');
+			$.cookie('checkQuote', 'true', { expires: 1000 });
 		} else {
-			$.cookie('checkQuote', 'false');
+			$.cookie('checkQuote', 'false', { expires: 1000 });
 		}
 		if ($('#fixLinks').attr('checked')) {
-			$.cookie('fixLinks', 'true');
+			$.cookie('fixLinks', 'true', { expires: 1000 });
 		} else {
-			$.cookie('fixLinks', 'false');
+			$.cookie('fixLinks', 'false', { expires: 1000 });
 		}
 		if ($('#myPostInThread').attr('checked')) {
-			$.cookie('myPostInThread', 'true');
+			$.cookie('myPostInThread', 'true', { expires: 1000 });
 		} else {
-			$.cookie('myPostInThread', 'false');
+			$.cookie('myPostInThread', 'false', { expires: 1000 });
 		}
 		if ($('#hetaAmnenMod').attr('checked')) {
-			$.cookie('hetaAmnenMod', 'true');
+			$.cookie('hetaAmnenMod', 'true', { expires: 1000 });
 		} else {
-			$.cookie('hetaAmnenMod', 'false');
+			$.cookie('hetaAmnenMod', 'false', { expires: 1000 });
 		}
 		$('#settingsDialog').fadeOut('Slow', function(){
 			$('#backgroundCover').fadeOut('Slow', function(){
