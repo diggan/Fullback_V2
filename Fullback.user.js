@@ -38,6 +38,7 @@ $(document).ready(function() {
 							<input type="checkbox" id="fixLinks"/> fixLinks\
 							<input type="checkbox" id="myPostInThread"/> myPostInThread\
 							<input type="checkbox" id="hetaAmnenMod"/> hetaAmnenMod\
+							<input type="checkbox" id="showImages" title="Du måste använda fixLinks tillsammans med showImages"/> showImages\
 							<div style="position:absolute; bottom:5px; width: 200px; left: 50%; margin-left: -100px; text-align: center;"><a href="#" id="closeToolboxSettings">Spara, stäng och ladda om sidan</a></div>\
 							<div style="position:absolute; bottom:5px; width: 200px; right: 10px; text-align: right;"><a href="#" id="forceCloseToolboxSettings">Stäng</a></div>\
 							</div>';
@@ -77,7 +78,9 @@ $(document).ready(function() {
 		$('#myPostInThread').attr('checked','checked');	
 	if($.cookie('hetaAmnenMod') == "true")
 		$('#hetaAmnenMod').attr('checked','checked');	
-	
+	if($.cookie('showImages') == "true")
+		$('#showImages').attr('checked','checked');	
+
 	//Remove #top
 	if($.cookie('removeTop') == "true")
 		$('#top').remove();
@@ -217,6 +220,18 @@ $(document).ready(function() {
 			}
 		}
 	}
+	//Show images in threads 
+	if($.cookie('showImages') == "true") {
+		if($.cookie('fixLinks') == "true") {
+			//alt1 post-right
+			var maxWidth = $('.post-right').width() - 20;
+			$('a[href$="jpg"], a[href$="jpeg"], a[href$="png"], a[href$="gif"]').each(function() {
+				$(this).html('<br/><a href="'+$(this).attr('href')+'" target="_blank"><img src="'+$(this).attr('href')+'" style="max-width: '+maxWidth+'px;"/></a>'); 
+				console.log('Fixed image link!'+$(this).attr('href'));
+			});
+		}
+	}
+	// ======================
 
 	//openToolboxSettings
 	$('#openToolboxSettings').click(function(){
@@ -268,6 +283,11 @@ $(document).ready(function() {
 			$.cookie('hetaAmnenMod', 'true', { expires: 1000 });
 		} else {
 			$.cookie('hetaAmnenMod', 'false', { expires: 1000 });
+		}
+		if ($('#showImages').attr('checked')) {
+			$.cookie('showImages', 'true', { expires: 1000 });
+		} else {
+			$.cookie('showImages', 'false', { expires: 1000 });
 		}
 		$('#settingsDialog').fadeOut('Slow', function(){
 			$('#backgroundCover').fadeOut('Slow', function(){

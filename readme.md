@@ -35,16 +35,21 @@ Lägger till en länk för att lätt kunna söka efter dina egna inlägg i en tr
 ###hetaAmnenMod
 Tillåter dig att ändra vilka av de olika kategorierna på heta ämnen som ska visas.
 
+###showImages
+Visar bilder direkt i tråden.
+
 ##Version
 
 ###0.1.1
-Nytt är fixLinks, myPostInThread, hetaAmnenMod och ett antal buggfixar när det gäller checkQuote. Funktionen är dock inte helt failsafe ännu.
+Nytt är fixLinks, myPostInThread, hetaAmnenMod, showImages och ett antal buggfixar när det gäller checkQuote. Funktionen är dock inte helt failsafe ännu.
 
 En pil visar nu vart man hittar Fullback.
 
 Kakor är inte längre sessionskakor utan kakor som löper ut 1000 dagar frammåt.
 
 En ny länk i Fullback-dialogen finns nu. "Stäng" stänger dialogen utan att spara eller ladda om sidan.
+
+Bilder kan visas direkt i tråden.
 
 ###0.1
 Första versionen.
@@ -53,6 +58,7 @@ Första versionen.
 
 - DONE Ändra vilka delar heta ämnen visar med checkboxes
 - DONE Visa en introduktion första gången man laddar Flashback när skriptet är installerat
+- DONEVisa bilder direkt i tråden eller visa med knapp
 
 - checkQuote ger felaktigt ut att nytt citat finns när det inte gör det
 - Funktion att dölja inlägg som understiger ett visst antal bokstäver
@@ -65,7 +71,6 @@ Första versionen.
 - Funktion för att kunna navigera Flashback med tangentbordet
 - Snabbpost (med gräns på antal bokstäver som krävs)
 - Toppknapp i menybaren som följer med i toppen
-- Visa bilder direkt i tråden eller visa med knapp
 - Fler inlägg än 40 stycken per sida
 - Visa automatiskt nästa sida
 - Göra en finare konfigureringsruta
