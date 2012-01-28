@@ -63,3 +63,4 @@ Första versionen.
 - Fler inlägg än 40 stycken per sida
 - Visa automatiskt nästa sida
 - Göra en finare konfigureringsruta
+- Visa en notice om det finns en uppdatering tillgänglig
