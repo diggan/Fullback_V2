@@ -40,6 +40,12 @@ Tillåter dig att ändra vilka av de olika kategorierna på heta ämnen som ska 
 ###0.1.1
 Nytt är fixLinks, myPostInThread, hetaAmnenMod och ett antal buggfixar när det gäller checkQuote. Funktionen är dock inte helt failsafe ännu.
 
+En pil visar nu vart man hittar Fullback.
+
+Kakor är inte längre sessionskakor utan kakor som löper ut 1000 dagar frammåt.
+
+En ny länk i Fullback-dialogen finns nu. "Stäng" stänger dialogen utan att spara eller ladda om sidan.
+
 ###0.1
 Första versionen.
 
