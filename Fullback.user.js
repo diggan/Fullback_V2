@@ -463,6 +463,11 @@ $(document).ready(function() {
 	if($.cookie('keyShorts') == "true") {
 		var currentPage = location.pathname;
 		currentPage = currentPage.substring(0,2);
+
+		var currentPost = $('a[id^="postcount"]:first').text();
+		currentPost--;
+
+		console.log(currentPost);
 		//If in thread
 		if((currentPage == "/p") || (currentPage == "/t")) {
 
@@ -475,6 +480,24 @@ $(document).ready(function() {
 				var tempVar = $("a:contains('<')").attr('href');
 				console.log(tempVar);
 				window.location = tempVar;
+			});
+			shortcut.add("Ctrl+Down",function() {
+				currentPost++;
+				$('html,body').animate({
+					scrollTop: $("a:contains("+currentPost+")").offset().top-30},
+				'slow');
+				$("a:contains("+(currentPost-1)+")").css('color','');
+				$("a:contains("+currentPost+")").css('color','red');
+				console.log(currentPost);
+			});
+			shortcut.add("Ctrl+Up",function() {
+				currentPost = currentPost - 1;
+				console.log(currentPost);
+				$('html,body').animate({
+					scrollTop: $("a:contains("+currentPost+")").offset().top-30},
+				'slow');
+				$("a:contains("+(currentPost+1)+")").css('color','');
+				$("a:contains("+currentPost+")").css('color','red');
 			});
 		}
 	}
