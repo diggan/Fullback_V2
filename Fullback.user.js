@@ -461,9 +461,22 @@ $(document).ready(function() {
 	}
 
 	if($.cookie('keyShorts') == "true") {
-		shortcut.add("Ctrl+Shift+X",function() {
-			alert("Hi there!");
-		});
+		var currentPage = location.pathname;
+		currentPage = currentPage.substring(0,2);
+		//If in thread
+		if((currentPage == "/p") || (currentPage == "/t")) {
+
+			shortcut.add("Ctrl+Right",function() {
+				var tempVar = $("a:contains('>')").attr('href');
+				console.log(tempVar);
+				window.location = tempVar;
+			});
+			shortcut.add("Ctrl+Left",function() {
+				var tempVar = $("a:contains('<')").attr('href');
+				console.log(tempVar);
+				window.location = tempVar;
+			});
+		}
 	}
 	// ======================
 
