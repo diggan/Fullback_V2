@@ -484,20 +484,27 @@ $(document).ready(function() {
 			shortcut.add("Ctrl+Down",function() {
 				currentPost++;
 				$('html,body').animate({
-					scrollTop: $("a:contains("+currentPost+")").offset().top-30},
+					scrollTop: $('a[id^="postcount"]:contains('+currentPost+')').offset().top-30},
 				'slow');
-				$("a:contains("+(currentPost-1)+")").css('color','');
-				$("a:contains("+currentPost+")").css('color','red');
+				$('a[id^="postcount"]:contains('+(currentPost-1)+')').css('color','');
+				$('a[id^="postcount"]:contains('+currentPost+')').css('color','red');
 				console.log(currentPost);
 			});
 			shortcut.add("Ctrl+Up",function() {
 				currentPost = currentPost - 1;
 				console.log(currentPost);
 				$('html,body').animate({
-					scrollTop: $("a:contains("+currentPost+")").offset().top-30},
+					scrollTop: $('a[id^="postcount"]:contains('+currentPost+')').offset().top-30},
 				'slow');
 				$("a:contains("+(currentPost+1)+")").css('color','');
 				$("a:contains("+currentPost+")").css('color','red');
+			});
+			shortcut.add("Ctrl+C",function() {
+				var quoteLink = $('a[id^="postcount"]:contains('+currentPost+')').attr('href');
+				quoteLink = quoteLink.substring(3,1000);
+				quoteLink = 'https://www.flashback.org/newreply.php?do=newreply&p='+quoteLink;
+				window.location = quoteLink;
+				//console.log(currentPost+' have '+quoteLink+' as quoteLink');
 			});
 		}
 	}
