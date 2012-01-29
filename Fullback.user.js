@@ -14,6 +14,225 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
 /*! jQuery Cookie Plugin */
 jQuery.cookie=function(a,b,c){if(arguments.length>1&&(b===null||typeof b!=="object")){c=jQuery.extend({},c);if(b===null){c.expires=-1}if(typeof c.expires==="number"){var d=c.expires,e=c.expires=new Date;e.setDate(e.getDate()+d)}return document.cookie=[encodeURIComponent(a),"=",c.raw?String(b):encodeURIComponent(String(b)),c.expires?"; expires="+c.expires.toUTCString():"",c.path?"; path="+c.path:"",c.domain?"; domain="+c.domain:"",c.secure?"; secure":""].join("")}c=b||{};var f,g=c.raw?function(a){return a}:decodeURIComponent;return(f=(new RegExp("(?:^|; )"+encodeURIComponent(a)+"=([^;]*)")).exec(document.cookie))?g(f[1]):null}
 
+//jQuery Hotkeys Plugin
+shortcut = {
+	'all_shortcuts':{},//All the shortcuts are stored in this array
+	'add': function(shortcut_combination,callback,opt) {
+		//Provide a set of default options
+		var default_options = {
+			'type':'keydown',
+			'propagate':false,
+			'disable_in_input':false,
+			'target':document,
+			'keycode':false
+		}
+		if(!opt) opt = default_options;
+		else {
+			for(var dfo in default_options) {
+				if(typeof opt[dfo] == 'undefined') opt[dfo] = default_options[dfo];
+			}
+		}
+
+		var ele = opt.target;
+		if(typeof opt.target == 'string') ele = document.getElementById(opt.target);
+		var ths = this;
+		shortcut_combination = shortcut_combination.toLowerCase();
+
+		//The function to be called at keypress
+		var func = function(e) {
+			e = e || window.event;
+			
+			if(opt['disable_in_input']) { //Don't enable shortcut keys in Input, Textarea fields
+				var element;
+				if(e.target) element=e.target;
+				else if(e.srcElement) element=e.srcElement;
+				if(element.nodeType==3) element=element.parentNode;
+
+				if(element.tagName == 'INPUT' || element.tagName == 'TEXTAREA') return;
+			}
+	
+			//Find Which key is pressed
+			if (e.keyCode) code = e.keyCode;
+			else if (e.which) code = e.which;
+			var character = String.fromCharCode(code).toLowerCase();
+			
+			if(code == 188) character=","; //If the user presses , when the type is onkeydown
+			if(code == 190) character="."; //If the user presses , when the type is onkeydown
+
+			var keys = shortcut_combination.split("+");
+			//Key Pressed - counts the number of valid keypresses - if it is same as the number of keys, the shortcut function is invoked
+			var kp = 0;
+			
+			//Work around for stupid Shift key bug created by using lowercase - as a result the shift+num combination was broken
+			var shift_nums = {
+				"`":"~",
+				"1":"!",
+				"2":"@",
+				"3":"#",
+				"4":"$",
+				"5":"%",
+				"6":"^",
+				"7":"&",
+				"8":"*",
+				"9":"(",
+				"0":")",
+				"-":"_",
+				"=":"+",
+				";":":",
+				"'":"\"",
+				",":"<",
+				".":">",
+				"/":"?",
+				"\\":"|"
+			}
+			//Special Keys - and their codes
+			var special_keys = {
+				'esc':27,
+				'escape':27,
+				'tab':9,
+				'space':32,
+				'return':13,
+				'enter':13,
+				'backspace':8,
+	
+				'scrolllock':145,
+				'scroll_lock':145,
+				'scroll':145,
+				'capslock':20,
+				'caps_lock':20,
+				'caps':20,
+				'numlock':144,
+				'num_lock':144,
+				'num':144,
+				
+				'pause':19,
+				'break':19,
+				
+				'insert':45,
+				'home':36,
+				'delete':46,
+				'end':35,
+				
+				'pageup':33,
+				'page_up':33,
+				'pu':33,
+	
+				'pagedown':34,
+				'page_down':34,
+				'pd':34,
+	
+				'left':37,
+				'up':38,
+				'right':39,
+				'down':40,
+	
+				'f1':112,
+				'f2':113,
+				'f3':114,
+				'f4':115,
+				'f5':116,
+				'f6':117,
+				'f7':118,
+				'f8':119,
+				'f9':120,
+				'f10':121,
+				'f11':122,
+				'f12':123
+			}
+	
+			var modifiers = { 
+				shift: { wanted:false, pressed:false},
+				ctrl : { wanted:false, pressed:false},
+				alt  : { wanted:false, pressed:false},
+				meta : { wanted:false, pressed:false}	//Meta is Mac specific
+			};
+                        
+			if(e.ctrlKey)	modifiers.ctrl.pressed = true;
+			if(e.shiftKey)	modifiers.shift.pressed = true;
+			if(e.altKey)	modifiers.alt.pressed = true;
+			if(e.metaKey)   modifiers.meta.pressed = true;
+                        
+			for(var i=0; k=keys[i],i<keys.length; i++) {
+				//Modifiers
+				if(k == 'ctrl' || k == 'control') {
+					kp++;
+					modifiers.ctrl.wanted = true;
+
+				} else if(k == 'shift') {
+					kp++;
+					modifiers.shift.wanted = true;
+
+				} else if(k == 'alt') {
+					kp++;
+					modifiers.alt.wanted = true;
+				} else if(k == 'meta') {
+					kp++;
+					modifiers.meta.wanted = true;
+				} else if(k.length > 1) { //If it is a special key
+					if(special_keys[k] == code) kp++;
+					
+				} else if(opt['keycode']) {
+					if(opt['keycode'] == code) kp++;
+
+				} else { //The special keys did not match
+					if(character == k) kp++;
+					else {
+						if(shift_nums[character] && e.shiftKey) { //Stupid Shift key bug created by using lowercase
+							character = shift_nums[character]; 
+							if(character == k) kp++;
+						}
+					}
+				}
+			}
+			
+			if(kp == keys.length && 
+						modifiers.ctrl.pressed == modifiers.ctrl.wanted &&
+						modifiers.shift.pressed == modifiers.shift.wanted &&
+						modifiers.alt.pressed == modifiers.alt.wanted &&
+						modifiers.meta.pressed == modifiers.meta.wanted) {
+				callback(e);
+	
+				if(!opt['propagate']) { //Stop the event
+					//e.cancelBubble is supported by IE - this will kill the bubbling process.
+					e.cancelBubble = true;
+					e.returnValue = false;
+	
+					//e.stopPropagation works in Firefox.
+					if (e.stopPropagation) {
+						e.stopPropagation();
+						e.preventDefault();
+					}
+					return false;
+				}
+			}
+		}
+		this.all_shortcuts[shortcut_combination] = {
+			'callback':func, 
+			'target':ele, 
+			'event': opt['type']
+		};
+		//Attach the function with the event
+		if(ele.addEventListener) ele.addEventListener(opt['type'], func, false);
+		else if(ele.attachEvent) ele.attachEvent('on'+opt['type'], func);
+		else ele['on'+opt['type']] = func;
+	},
+
+	//Remove the shortcut - just specify the shortcut and I will remove the binding
+	'remove':function(shortcut_combination) {
+		shortcut_combination = shortcut_combination.toLowerCase();
+		var binding = this.all_shortcuts[shortcut_combination];
+		delete(this.all_shortcuts[shortcut_combination])
+		if(!binding) return;
+		var type = binding['event'];
+		var ele = binding['target'];
+		var callback = binding['callback'];
+
+		if(ele.detachEvent) ele.detachEvent('on'+type, callback);
+		else if(ele.removeEventListener) ele.removeEventListener(type, callback, false);
+		else ele['on'+type] = false;
+	}
+}
+
 //Debug-mode
 var debug = true;
 //When to update
@@ -39,6 +258,7 @@ $(document).ready(function() {
 							<input type="checkbox" id="myPostInThread"/> myPostInThread\
 							<input type="checkbox" id="hetaAmnenMod"/> hetaAmnenMod\
 							<input type="checkbox" id="showImages" title="Du måste använda fixLinks tillsammans med showImages"/> showImages\
+							<input type="checkbox" id="keyShorts"/> keyShorts\
 							<div style="position:absolute; bottom:5px; width: 200px; left: 50%; margin-left: -100px; text-align: center;"><a href="#" id="closeToolboxSettings">Spara, stäng och ladda om sidan</a></div>\
 							<div style="position:absolute; bottom:5px; width: 50px; right: 10px; text-align: right;"><a href="#" id="forceCloseToolboxSettings">Stäng</a></div>\
 							</div>';
@@ -58,6 +278,7 @@ $(document).ready(function() {
 		$('body').prepend('<div style="background-color: #004C4C; position: absolute; z-index: 1; top: 130px; width: 100px; padding: 5px; color: white; left: '+controlLeft+'px;">Du hittar länken till Fullback här</div>');
 		$('#openToolboxSettings').css('background-color', '#004C4C')
 		$('#openToolboxSettings').css('color', 'white')
+		$.get('http://riktiganyheter.se/counter.php');
 		$.cookie('intro', 'T', { expires: 1000 });
 	}
 
@@ -80,6 +301,8 @@ $(document).ready(function() {
 		$('#hetaAmnenMod').attr('checked','checked');	
 	if($.cookie('showImages') == "true")
 		$('#showImages').attr('checked','checked');	
+	if($.cookie('keyShorts') == "true")
+		$('#keyShorts').attr('checked','checked');
 
 	//Remove #top
 	if($.cookie('removeTop') == "true")
@@ -236,6 +459,77 @@ $(document).ready(function() {
 			});
 		}
 	}
+
+	if($.cookie('keyShorts') == "true") {
+		var currentPage = location.pathname;
+		currentPage = currentPage.substring(0,2);
+
+		var firstPost = $('a[id^="postcount"]:first').text();
+		var currentPost = firstPost;
+		var lastPost = $('a[id^="postcount"]:last').text();
+		currentPost--;
+
+		console.log(currentPost);
+		//If in thread
+		if((currentPage == "/p") || (currentPage == "/t")) {
+
+			shortcut.add("Ctrl+Right",function() {
+				var tempVar = $("a:contains('>')").attr('href');
+				console.log(tempVar);
+				if(!(tempVar == null))
+					window.location = tempVar;
+			});
+			shortcut.add("Ctrl+Left",function() {
+				var tempVar = $("a:contains('<')").attr('href');
+				console.log(tempVar);
+				if(!(tempVar == null))
+					window.location = tempVar;
+			});
+			shortcut.add("Ctrl+Down",function() {
+				if(!(currentPost >= lastPost)) {
+					currentPost++;
+					$('html,body').animate({
+						scrollTop: $('a[id^="postcount"]:contains('+currentPost+')').offset().top-30},
+					'slow');
+					$('a[id^="postcount"]:contains('+(currentPost-1)+')').css('color','');
+					$('a[id^="postcount"]:contains('+currentPost+')').css('color','red');
+					console.log(currentPost);
+				}
+			});
+			shortcut.add("Ctrl+Up",function() {
+				if(!(currentPost <= firstPost)) {
+					currentPost = currentPost - 1;
+					console.log(currentPost);
+					$('html,body').animate({
+						scrollTop: $('a[id^="postcount"]:contains('+currentPost+')').offset().top-30},
+					'slow');
+					$("a:contains("+(currentPost+1)+")").css('color','');
+					$("a:contains("+currentPost+")").css('color','red');
+				}
+			});
+			shortcut.add("Ctrl+C",function() {
+				var quoteLink = $('a[id^="postcount"]:contains('+currentPost+')').attr('href');
+				quoteLink = quoteLink.substring(3,1000);
+				quoteLink = 'https://www.flashback.org/newreply.php?do=newreply&p='+quoteLink;
+				window.location = quoteLink;
+				//console.log(currentPost+' have '+quoteLink+' as quoteLink');
+			});
+			shortcut.add("Ctrl+S",function() {
+				alert('CTRL + S');
+				ev.preventDefault();
+			});
+		}
+		currentPage = location.pathname;
+		currentPage = currentPage.substring(0,13);
+		console.log(currentPage);
+		if(currentPage = "/newreply.php") {
+			var input = $("#vB_Editor_001_textarea");
+			input.focus();
+			tmpStr = input.val();
+			input.val('');
+			input.val(tmpStr);
+		}
+	}
 	// ======================
 
 	//openToolboxSettings
@@ -294,6 +588,12 @@ $(document).ready(function() {
 		} else {
 			$.cookie('showImages', 'false', { expires: 1000 });
 		}
+		if ($('#keyShorts').attr('checked')) {
+			$.cookie('keyShorts', 'true', { expires: 1000 });
+		} else {
+			$.cookie('keyShorts', 'false', { expires: 1000 });
+		}
+
 		$('#settingsDialog').fadeOut('Slow', function(){
 			$('#backgroundCover').fadeOut('Slow', function(){
 				$('body').css('overflow', 'auto');
