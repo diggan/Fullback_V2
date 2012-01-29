@@ -743,7 +743,7 @@ $('#tabs ul li a').click(function(){
 	         versionRemote = versionRemote.slice(0, -1);
 	         if(debug)
 	         	console.log('versionLocal: '+versionLocal+' | versionRemote: '+versionRemote);
-	         $('html').append('<div id="updateNotice" style="text-align: center; position: fixed; top: 200px; width: 150px; background-color: white; left: -200px; padding: 5px;"><h1 style="font-weight: bolder; font-size: 200%;">Uppdatering!</h1><p>Det finns en uppdatering tillgänglig för Fullback</p><a href="https://github.com/diggan/Fullback_V2/raw/master/Fullback.user.js" target="_blank" style="font-size: 130%;">Uppdatera</a></div>');
+	         $('html').append('<div id="updateNotice" style="text-align: center; position: fixed; top: 200px; width: 150px; background-color: white; left: -200px; padding: 5px;"><h1 style="font-weight: bolder; font-size: 200%;">Uppdatering!</h1><p>Det finns en uppdatering tillgänglig för <a href="https://www.flashback.org/t1482213" target="_blank">Fullback</a></p><br/><p>Du har version '+versionLocal+' och nyaste versionen är '+versionRemote+'</p><br/><a href="https://github.com/diggan/Fullback_V2/raw/master/Fullback.user.js" target="_blank" style="font-size: 130%;">Uppdatera</a></div>');
 	         if(!(versionLocal == versionRemote)) {
 	         	 $('#updateNotice').animate({
 				    left: '0',
