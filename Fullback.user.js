@@ -474,12 +474,14 @@ $(document).ready(function() {
 			shortcut.add("Ctrl+Right",function() {
 				var tempVar = $("a:contains('>')").attr('href');
 				console.log(tempVar);
-				window.location = tempVar;
+				if(!tempVar == "undefined")
+					window.location = tempVar;
 			});
 			shortcut.add("Ctrl+Left",function() {
 				var tempVar = $("a:contains('<')").attr('href');
 				console.log(tempVar);
-				window.location = tempVar;
+				if(!tempVar == "undefined")
+					window.location = tempVar;
 			});
 			shortcut.add("Ctrl+Down",function() {
 				currentPost++;
@@ -505,6 +507,10 @@ $(document).ready(function() {
 				quoteLink = 'https://www.flashback.org/newreply.php?do=newreply&p='+quoteLink;
 				window.location = quoteLink;
 				//console.log(currentPost+' have '+quoteLink+' as quoteLink');
+			});
+			shortcut.add("Ctrl+S",function() {
+				alert('CTRL + S');
+				ev.preventDefault();
 			});
 		}
 	}
