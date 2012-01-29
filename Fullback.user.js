@@ -449,9 +449,10 @@ $(document).ready(function() {
 			//alt1 post-right
 			var maxWidth = $('.post-right').width() - 20;
 			$('a[href$="jpg"], a[href$="jpeg"], a[href$="png"], a[href$="gif"], a[href$="JPG"]').each(function() {
-				if($(this).closest("div").attr("id") == null) {
+				if ($(this).parent('div[href^="post_message"]').length > 0) {
 					console.log('False '+$(this).attr("href"));
-				} else {
+				}
+				else {
 					console.log('True '+$(this).attr("href"));
 					$(this).html('<br/><a href="'+$(this).attr('href')+'" target="_blank"><img src="'+$(this).attr('href')+'" style="max-width: '+maxWidth+'px;"/></a>'); 
 					console.log('Fixed image link!'+$(this).attr('href'));
