@@ -58,7 +58,7 @@ Första versionen.
 
 - DONE Ändra vilka delar heta ämnen visar med checkboxes
 - DONE Visa en introduktion första gången man laddar Flashback när skriptet är installerat
-- DONEVisa bilder direkt i tråden eller visa med knapp
+- DONE Visa bilder direkt i tråden eller visa med knapp
 
 - checkQuote ger felaktigt ut att nytt citat finns när det inte gör det
 - Funktion att dölja inlägg som understiger ett visst antal bokstäver
@@ -76,3 +76,5 @@ Första versionen.
 - Göra en finare konfigureringsruta
 - Visa en notice om det finns en uppdatering tillgänglig
 - Möjlighet att söka på valfri term med samma funktionalitet som checkQuote
+- Göra en länk till mina citerade inlägg i nuvarande tråd
+- Kunna trycka på en knapp för att visa bilder i tråden
