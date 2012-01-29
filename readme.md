@@ -38,10 +38,24 @@ Tillåter dig att ändra vilka av de olika kategorierna på heta ämnen som ska 
 ###showImages
 Visar bilder direkt i tråden.
 
+##keyShorts
+
+Gör så att du kan navigera på Flashback med bara tangentbordet **CTRL +
+Högerpil** Nästa sida i tråden\
+\
+ **CTRL + Vänsterpil** Tidigare sida i tråden\
+\
+ **CTRL + Nedpil** Se nästa inlägg i tråden\
+\
+ **CTRL + Uppil** Se föregående inlägg i tråden\
+\
+ **CTRL + C** Citera markerat inlägg\
+\
+
 ##Version
 
 ###0.1.1
-Nytt är fixLinks, myPostInThread, hetaAmnenMod, showImages och ett antal buggfixar när det gäller checkQuote. Funktionen är dock inte helt failsafe ännu.
+Nytt är fixLinks, myPostInThread, hetaAmnenMod, showImages, keyShorts och ett antal buggfixar när det gäller checkQuote. Funktionen är dock inte helt failsafe ännu.
 
 En pil visar nu vart man hittar Fullback.
 
@@ -50,6 +64,8 @@ Kakor är inte längre sessionskakor utan kakor som löper ut 1000 dagar frammå
 En ny länk i Fullback-dialogen finns nu. "Stäng" stänger dialogen utan att spara eller ladda om sidan.
 
 Bilder kan visas direkt i tråden.
+
+Man kan nu använda tangentbordet för att navigera runt i trådar.
 
 ###0.1
 Första versionen.
