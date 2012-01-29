@@ -63,6 +63,10 @@ Citera markerat inlägg
 
 ##Version
 
+###0.1.2
+
+
+
 ###0.1.1
 Nytt är fixLinks, myPostInThread, hetaAmnenMod, showImages, keyShorts och ett antal buggfixar när det gäller checkQuote. Funktionen är dock inte helt failsafe ännu.
 
@@ -75,6 +79,8 @@ En ny länk i Fullback-dialogen finns nu. "Stäng" stänger dialogen utan att sp
 Bilder kan visas direkt i tråden.
 
 Man kan nu använda tangentbordet för att navigera runt i trådar.
+
+Finare inställningsdialog
 
 ###0.1
 Första versionen.

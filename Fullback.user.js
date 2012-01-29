@@ -3,7 +3,7 @@
 // @namespace      flashback
 // @description    Skriptet för dig som önskar att Flashback var så mycket mera
 // @include        https://www.flashback.org/*
-// @version        0.1.1
+// @version        0.1.2
 // ==/UserScript==
 
 /*! jQuery v1.7.1 jquery.com | jquery.org/license */
@@ -234,46 +234,97 @@ shortcut = {
 }
 
 //Debug-mode
-var debug = true;
+if($.cookie('debugMode') == "true")
+	var debug = true;
+else
+	var debug = false;
+
 //When to update
 var updateTime = 10000;
 
 //Local version
-var versionLocal = "0.1.1";
+var versionLocal = "0.1.2";
 
 // When page have loaded
 $(document).ready(function() {
 	if(debug)
 		console.log('DOM ready');
-	//Add mod toolbox option dialog
-	var settingsDialog = '<div id="settingsDialog" style="background-color: white; width: 500px; border-radius: 20px; position: absolute;\
-							z-index: 12; top: 100px; left: 50%; display: none; box-shadow: 0px 0px 5px #FFF; margin-left: -250px; padding-bottom: 50px;">\
-							<div style="font-size: 20px; width: 300px; text-align: center; margin: 0 auto;">Fullback</div>\
-							<input type="checkbox" id="removeTop"/> removeTop\
-							<input type="checkbox" id="stopGif"/> stopGif\
-							<input type="checkbox" id="checkPM"/> checkPM\
-							<input type="checkbox" id="floatingTabs"/> floatingTabs\
-							<input type="checkbox" id="checkQuote"/> checkQuote\
-							<input type="checkbox" id="fixLinks"/> fixLinks\
-							<input type="checkbox" id="myPostInThread"/> myPostInThread\
-							<input type="checkbox" id="hetaAmnenMod"/> hetaAmnenMod\
-							<input type="checkbox" id="showImages" title="Du måste använda fixLinks tillsammans med showImages"/> showImages\
-							<input type="checkbox" id="keyShorts"/> keyShorts\
-							<div style="position:absolute; bottom:5px; width: 200px; left: 50%; margin-left: -100px; text-align: center;"><a href="#" id="closeToolboxSettings">Spara, stäng och ladda om sidan</a></div>\
-							<div style="position:absolute; bottom:5px; width: 50px; right: 10px; text-align: right;"><a href="#" id="forceCloseToolboxSettings">Stäng</a></div>\
-							</div>';
+//Add mod toolbox option dialog
+var settingsDialog = '\
+<div id="settingsDialog" style="background-color: white; width: 500px; border-radius: 20px; position: absolute;\
+z-index: 12; top: 100px; left: 50%; display: none; box-shadow: 0px 0px 5px #FFF; margin-left: -250px; padding-bottom: 50px;">\
+<div style="font-size: 20px; width: 300px; text-align: center; margin: 0 auto;">Fullback</div>\
+<div id="tabs">\
+<ul style="float: left; margin-left: 5px; width: 110px;">\
+<li><a href="#tab-1">Grundläggande</a></li>\
+<li><a href="#tab-2">Design</a></li>\
+<li><a href="#tab-3">Uppdateringar</a></li>\
+<li><a href="#tab-4">Trådar</a></li>\
+</ul>\
+<div id="tab-1" style="float: left; margin-left: 5px;">\
+<h1 style="font-weight: bolder; font-size: 120%;">Grundläggande</h1>\
+<p>Detta är grundläggande inställningar</p>\
+Version: '+versionLocal+'<br/>\
+<input type="checkbox" id="debugMode"/> debugMode<br/>\
+</div>\
+<div id="tab-2" style="float: left; margin-left: 5px;">\
+<h1 style="font-weight: bolder; font-size: 120%;">Design</h1>\
+<p>Detta är Design inställningar</p>\
+<input type="checkbox" id="removeTop"/> removeTop<br/>\
+<input type="checkbox" id="floatingTabs"/> floatingTabs<br/>\
+<input type="checkbox" id="hetaAmnenMod"/> hetaAmnenMod<br/>\
+</div>\
+<div id="tab-3" style="float: left; margin-left: 5px;">\
+<h1 style="font-weight: bolder; font-size: 120%;">Uppdateringar</h1>\
+<p>Detta är Uppdateringar inställningar</p>\
+<input type="checkbox" id="checkPM"/> checkPM<br/>\
+<input type="checkbox" id="checkQuote"/> checkQuote<br/>\
+</div>\
+<div id="tab-4" style="float: left; margin-left: 5px;">\
+<h1 style="font-weight: bolder; font-size: 120%;">Trådar</h1>\
+<p>Detta är Trådar inställningar</p>\
+<input type="checkbox" id="stopGif"/> stopGif<br/>\
+<input type="checkbox" id="fixLinks"/> fixLinks<br/>\
+<input type="checkbox" id="myPostInThread"/> myPostInThread<br/>\
+<input type="checkbox" id="showImages" title="Du måste använda fixLinks tillsammans med showImages"/> showImages<br/>\
+<input type="checkbox" id="keyShorts"/> keyShorts<br/>\
+</div>\
+</div>\
+<div style="position:absolute; bottom:5px; width: 200px; left: 50%; margin-left: -100px; text-align: center;"><a href="#" id="closeToolboxSettings">Spara, stäng och ladda om sidan</a></div>\
+<div style="position:absolute; bottom:5px; width: 50px; right: 10px; text-align: right;"><a href="#" id="forceCloseToolboxSettings">Stäng</a></div>\
+</div>\
+';
+
 	$('body').prepend(settingsDialog);
 	$('body').prepend('<div id="backgroundCover" style="display: none; background-color: black; width: 100%; height: 100%; position: absolute; z-index: 11; opacity:0.9; filter:alpha(opacity=90);"> </div>');
-	
+
+$('#tabs div').hide();
+$('#tabs div:first').show();
+$('#tabs ul li:first').addClass('active');
+$('#tabs ul li:first').css('font-weight', 'bolder');
+ 
+$('#tabs ul li a').click(function(){
+	$('#tabs ul li').css('font-weight','');
+	$('#tabs ul li').removeClass('active');
+	$(this).parent().css('font-weight', 'bolder');
+	$(this).parent().addClass('active');
+	var currentTab = $(this).attr('href');
+	$('#tabs div').hide();
+	$(currentTab).show();
+	return false;
+});
+
 	//Add mod toolbox href
 	$('.top-menu-sub').append('<li class="l2"><a href="#" id="openToolboxSettings">Fullback</a></li>');
 
 	//Intro popup
 	if($.cookie('intro') == null) {
-		console.log('Första gången');
+		if(debug)
+			console.log('Första gången');
 		var controlPosition = $('ul.top-menu-main li.l0').offset();
 		var controlLeft = controlPosition.left - 30;
-		console.log(controlPosition);
+		if(debug)
+			console.log(controlPosition);
 		$('body').prepend('<img src="http://i.imgur.com/Tn8De.png" style="position: absolute; top: 30px; left: '+controlLeft+'px;" width="100"/>');
 		$('body').prepend('<div style="background-color: #004C4C; position: absolute; z-index: 1; top: 130px; width: 100px; padding: 5px; color: white; left: '+controlLeft+'px;">Du hittar länken till Fullback här</div>');
 		$('#openToolboxSettings').css('background-color', '#004C4C')
@@ -283,6 +334,8 @@ $(document).ready(function() {
 	}
 
 	//Set checkboxes accordingly
+	if($.cookie('debugMode') == "true")
+		$('#debugMode').attr('checked','checked');
 	if($.cookie('removeTop') == "true")
 		$('#removeTop').attr('checked','checked');
 	if($.cookie('stopGif') == "true")
@@ -418,7 +471,8 @@ $(document).ready(function() {
 	}
 	//Enables users to mod heta-amnen
 	if($.cookie('hetaAmnenMod') == "true") {
-		console.log('Heta amnen mod active');
+		if(debug)
+			console.log('Heta amnen mod active');
 		var currentPage = location.pathname;
 		if(currentPage == "/heta-amnen"){
 			var hetaAmnenModVar = 'Kryssa i de kategorier du vill visa.\
@@ -449,14 +503,18 @@ $(document).ready(function() {
 			//alt1 post-right
 			var maxWidth = $('.post-right').width() - 20;
 			$('a[href$="jpg"], a[href$="jpeg"], a[href$="png"], a[href$="gif"], a[href$="JPG"]').each(function() {
-				console.log($(this).css('color'));
+				if(debug)
+					console.log($(this).css('color'));
 
 				if($(this).css('color') == 'rgb(102, 102, 102)') {
-					console.log($(this).attr('href')+' is in signature');
+					if(debug)
+						console.log($(this).attr('href')+' is in signature');
 				} else {
-					console.log('True '+$(this).attr("href"));
+					if(debug)
+						console.log('True '+$(this).attr("href"));
 					$(this).html('<br/><a href="'+$(this).attr('href')+'" target="_blank"><img src="'+$(this).attr('href')+'" style="max-width: '+maxWidth+'px;"/></a>'); 
-					console.log('Fixed image link!'+$(this).attr('href'));
+					if(debug)
+						console.log('Fixed image link!'+$(this).attr('href'));
 				}
 			});
 		}
@@ -470,20 +528,22 @@ $(document).ready(function() {
 		var currentPost = firstPost;
 		var lastPost = $('a[id^="postcount"]:last').text();
 		currentPost--;
-
-		console.log(currentPost);
+		if(debug)
+			console.log(currentPost);
 		//If in thread
 		if((currentPage == "/p") || (currentPage == "/t")) {
 
 			shortcut.add("Ctrl+Right",function() {
 				var tempVar = $("a:contains('>')").attr('href');
-				console.log(tempVar);
+				if(debug)
+					console.log(tempVar);
 				if(!(tempVar == null))
 					window.location = tempVar;
 			});
 			shortcut.add("Ctrl+Left",function() {
 				var tempVar = $("a:contains('<')").attr('href');
-				console.log(tempVar);
+				if(debug)
+					console.log(tempVar);
 				if(!(tempVar == null))
 					window.location = tempVar;
 			});
@@ -495,13 +555,15 @@ $(document).ready(function() {
 					'slow');
 					$('a[id^="postcount"]:contains('+(currentPost-1)+')').css('color','');
 					$('a[id^="postcount"]:contains('+currentPost+')').css('color','red');
-					console.log(currentPost);
+					if(debug)
+						console.log(currentPost);
 				}
 			});
 			shortcut.add("Ctrl+Up",function() {
 				if(!(currentPost <= firstPost)) {
 					currentPost = currentPost - 1;
-					console.log(currentPost);
+					if(debug)
+						console.log(currentPost);
 					$('html,body').animate({
 						scrollTop: $('a[id^="postcount"]:contains('+currentPost+')').offset().top-30},
 					'slow');
@@ -523,7 +585,8 @@ $(document).ready(function() {
 		}
 		currentPage = location.pathname;
 		currentPage = currentPage.substring(0,13);
-		console.log(currentPage);
+		if(debug)
+			console.log(currentPage);
 		if(currentPage = "/newreply.php") {
 			var input = $("#vB_Editor_001_textarea");
 			input.focus();
@@ -545,6 +608,11 @@ $(document).ready(function() {
 	});
 
 	$('#closeToolboxSettings').click(function(){
+		if ($('#debugMode').attr('checked')) {
+			$.cookie('debugMode', 'true', { expires: 1000 });
+		} else {
+			$.cookie('debugMode', 'false', { expires: 1000 });
+		}
 		if ($('#removeTop').attr('checked')) {
 			$.cookie('removeTop', 'true', { expires: 1000 });
 		} else {
@@ -628,7 +696,8 @@ $(document).ready(function() {
 				$('#threadslist:nth-child(3)').show();
 				break;
 			default:
-				console.log('Fel i hetaAmnenMod');
+				if(debug)
+					console.log('Fel i hetaAmnenMod');
 			}
 			window.scrollTo(0, document.body.scrollHeight);
 		} else {
@@ -650,7 +719,8 @@ $(document).ready(function() {
 				$('#threadslist:nth-child(3)').hide();
 				break;
 			default:
-				console.log('Fel i hetaAmnenMod');
+				if(debug)
+					console.log('Fel i hetaAmnenMod');
 			}
 		}
 	});
