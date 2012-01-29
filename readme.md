@@ -40,17 +40,26 @@ Visar bilder direkt i tråden.
 
 ##keyShorts
 
-Gör så att du kan navigera på Flashback med bara tangentbordet **CTRL +
-Högerpil** Nästa sida i tråden\
-\
- **CTRL + Vänsterpil** Tidigare sida i tråden\
-\
- **CTRL + Nedpil** Se nästa inlägg i tråden\
-\
- **CTRL + Uppil** Se föregående inlägg i tråden\
-\
- **CTRL + C** Citera markerat inlägg\
-\
+Gör så att du kan navigera på Flashback med bara tangentbordet
+
+**CTRL + Högerpil**
+Nästa sida i tråden
+
+
+**CTRL + Vänsterpil**
+Tidigare sida i tråden
+
+
+**CTRL + Nedpil**
+Se nästa inlägg i tråden
+
+
+**CTRL + Uppil**
+Se föregående inlägg i tråden
+
+
+**CTRL + C**
+Citera markerat inlägg
 
 ##Version
 
