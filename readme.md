@@ -64,7 +64,7 @@ Citera markerat inlägg
 ##Version
 
 ###0.1.2
-
+Om du kör en gammal version så dyker det upp en liten popup och berättar att det finns en nyare version.
 
 
 ###0.1.1

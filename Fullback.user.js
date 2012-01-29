@@ -253,7 +253,7 @@ $(document).ready(function() {
 var settingsDialog = '\
 <div id="settingsDialog" style="background-color: white; width: 500px; border-radius: 20px; position: absolute;\
 z-index: 12; top: 100px; left: 50%; display: none; box-shadow: 0px 0px 5px #FFF; margin-left: -250px; padding-bottom: 50px;">\
-<div style="font-size: 20px; width: 300px; text-align: center; margin: 0 auto;">Fullback</div>\
+<div style="font-size: 20px; width: 300px; text-align: center; margin: 0 auto;">Fullback '+versionLocal+'</div>\
 <div id="tabs">\
 <ul style="float: left; margin-left: 5px; width: 110px;">\
 <li><a href="#tab-1">Grundläggande</a></li>\
@@ -264,7 +264,6 @@ z-index: 12; top: 100px; left: 50%; display: none; box-shadow: 0px 0px 5px #FFF;
 <div id="tab-1" style="float: left; margin-left: 5px;">\
 <h1 style="font-weight: bolder; font-size: 120%;">Grundläggande</h1>\
 <p>Detta är grundläggande inställningar</p>\
-Version: '+versionLocal+'<br/>\
 <input type="checkbox" id="debugMode"/> debugMode<br/>\
 </div>\
 <div id="tab-2" style="float: left; margin-left: 5px;">\
@@ -732,4 +731,30 @@ $('#tabs ul li a').click(function(){
 			});
 		});
 	});
+
+	//Check if there is any updates
+	$.ajax({
+	     url:"https://www.flashback.org/sp29394165",
+	     success:function(versionRemote){
+	         // do stuff with json (in this case an array)
+	         versionRemote = $(versionRemote).find('#post_message_29394165').html();
+	         versionRemote = versionRemote.substr(versionRemote.length - 8);
+	         versionRemote = versionRemote.replace(/\s+/g, " ");
+	         versionRemote = versionRemote.slice(0, -1);
+	         if(debug)
+	         	console.log('versionLocal: '+versionLocal+' | versionRemote: '+versionRemote);
+	         $('html').append('<div id="updateNotice" style="text-align: center; position: fixed; top: 200px; width: 150px; background-color: white; left: -200px; padding: 5px;"><h1 style="font-weight: bolder; font-size: 200%;">Uppdatering!</h1><p>Det finns en uppdatering tillgänglig för Fullback</p><a href="https://github.com/diggan/Fullback_V2/raw/master/Fullback.user.js" target="_blank" style="font-size: 130%;">Uppdatera</a></div>');
+	         if(!(versionLocal == versionRemote)) {
+	         	 $('#updateNotice').animate({
+				    left: '0',
+				  }, 1000, function() {
+				    // Animation complete.
+				  });
+	        }
+ 	     },
+	     error:function(){
+	         alert("Error");
+	     },
+	});
+
 });
