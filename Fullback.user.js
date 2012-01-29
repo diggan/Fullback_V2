@@ -464,7 +464,9 @@ $(document).ready(function() {
 		var currentPage = location.pathname;
 		currentPage = currentPage.substring(0,2);
 
-		var currentPost = $('a[id^="postcount"]:first').text();
+		var firstPost = $('a[id^="postcount"]:first').text();
+		var currentPost = firstPost;
+		var lastPost = $('a[id^="postcount"]:last').text();
 		currentPost--;
 
 		console.log(currentPost);
@@ -474,32 +476,36 @@ $(document).ready(function() {
 			shortcut.add("Ctrl+Right",function() {
 				var tempVar = $("a:contains('>')").attr('href');
 				console.log(tempVar);
-				if(!tempVar == "undefined")
+				if(!(tempVar == null))
 					window.location = tempVar;
 			});
 			shortcut.add("Ctrl+Left",function() {
 				var tempVar = $("a:contains('<')").attr('href');
 				console.log(tempVar);
-				if(!tempVar == "undefined")
+				if(!(tempVar == null))
 					window.location = tempVar;
 			});
 			shortcut.add("Ctrl+Down",function() {
-				currentPost++;
-				$('html,body').animate({
-					scrollTop: $('a[id^="postcount"]:contains('+currentPost+')').offset().top-30},
-				'slow');
-				$('a[id^="postcount"]:contains('+(currentPost-1)+')').css('color','');
-				$('a[id^="postcount"]:contains('+currentPost+')').css('color','red');
-				console.log(currentPost);
+				if(!(currentPost >= lastPost)) {
+					currentPost++;
+					$('html,body').animate({
+						scrollTop: $('a[id^="postcount"]:contains('+currentPost+')').offset().top-30},
+					'slow');
+					$('a[id^="postcount"]:contains('+(currentPost-1)+')').css('color','');
+					$('a[id^="postcount"]:contains('+currentPost+')').css('color','red');
+					console.log(currentPost);
+				}
 			});
 			shortcut.add("Ctrl+Up",function() {
-				currentPost = currentPost - 1;
-				console.log(currentPost);
-				$('html,body').animate({
-					scrollTop: $('a[id^="postcount"]:contains('+currentPost+')').offset().top-30},
-				'slow');
-				$("a:contains("+(currentPost+1)+")").css('color','');
-				$("a:contains("+currentPost+")").css('color','red');
+				if(!(currentPost <= firstPost)) {
+					currentPost = currentPost - 1;
+					console.log(currentPost);
+					$('html,body').animate({
+						scrollTop: $('a[id^="postcount"]:contains('+currentPost+')').offset().top-30},
+					'slow');
+					$("a:contains("+(currentPost+1)+")").css('color','');
+					$("a:contains("+currentPost+")").css('color','red');
+				}
 			});
 			shortcut.add("Ctrl+C",function() {
 				var quoteLink = $('a[id^="postcount"]:contains('+currentPost+')').attr('href');
@@ -512,6 +518,16 @@ $(document).ready(function() {
 				alert('CTRL + S');
 				ev.preventDefault();
 			});
+		}
+		currentPage = location.pathname;
+		currentPage = currentPage.substring(0,13);
+		console.log(currentPage);
+		if(currentPage = "/newreply.php") {
+			var input = $("#vB_Editor_001_textarea");
+			input.focus();
+			tmpStr = input.val();
+			input.val('');
+			input.val(tmpStr);
 		}
 	}
 	// ======================
