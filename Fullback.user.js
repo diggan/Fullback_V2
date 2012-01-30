@@ -240,7 +240,11 @@ else
 	var debug = false;
 
 //When to update
-var updateTime = 10000;
+if(!($.cookie('updateTime') == null))
+	var updateTime = $.cookie('updateTime')*1000;
+else
+	var updateTime = 60000;
+
 
 //Local version
 var versionLocal = "0.1.2";
@@ -264,29 +268,30 @@ z-index: 12; top: 100px; left: 50%; display: none; box-shadow: 0px 0px 5px #FFF;
 <div id="tab-1" style="float: left; margin-left: 5px;">\
 <h1 style="font-weight: bolder; font-size: 120%;">Grundläggande</h1>\
 <p>Detta är grundläggande inställningar</p>\
-<input type="checkbox" id="debugMode"/> debugMode<br/>\
+<input type="checkbox" id="debugMode"/> Debug<br/>\
 </div>\
 <div id="tab-2" style="float: left; margin-left: 5px;">\
 <h1 style="font-weight: bolder; font-size: 120%;">Design</h1>\
-<p>Detta är Design inställningar</p>\
-<input type="checkbox" id="removeTop"/> removeTop<br/>\
-<input type="checkbox" id="floatingTabs"/> floatingTabs<br/>\
-<input type="checkbox" id="hetaAmnenMod"/> hetaAmnenMod<br/>\
+<p>Detta är inställningar som har med designen att göra</p>\
+<input type="checkbox" id="removeTop"/> Ta bort topp<br/>\
+<input type="checkbox" id="floatingTabs"/> Meny-rad följer scroll<br/>\
+<input type="checkbox" id="hetaAmnenMod"/> Heta Ämnen-väljare<br/>\
 </div>\
 <div id="tab-3" style="float: left; margin-left: 5px;">\
 <h1 style="font-weight: bolder; font-size: 120%;">Uppdateringar</h1>\
-<p>Detta är Uppdateringar inställningar</p>\
-<input type="checkbox" id="checkPM"/> checkPM<br/>\
-<input type="checkbox" id="checkQuote"/> checkQuote<br/>\
+<p>Detta är uppdaterings-inställningar</p>\
+<input type="checkbox" id="checkPM"/> Kolla automatiskt efter PM<br/>\
+<input type="checkbox" id="checkQuote"/> Kolla automatiskt efter citeringar<br/>\
+<input type="text" id="updateTime"/> Hur ofta det ska uppdateras\
 </div>\
 <div id="tab-4" style="float: left; margin-left: 5px;">\
 <h1 style="font-weight: bolder; font-size: 120%;">Trådar</h1>\
 <p>Detta är Trådar inställningar</p>\
-<input type="checkbox" id="stopGif"/> stopGif<br/>\
-<input type="checkbox" id="fixLinks"/> fixLinks<br/>\
-<input type="checkbox" id="myPostInThread"/> myPostInThread<br/>\
-<input type="checkbox" id="showImages" title="Du måste använda fixLinks tillsammans med showImages"/> showImages<br/>\
-<input type="checkbox" id="keyShorts"/> keyShorts<br/>\
+<input type="checkbox" id="stopGif"/> Stanna GIF-animationer (ej Chrome)<br/>\
+<input type="checkbox" id="fixLinks"/> Fixa utgående länkar<br/>\
+<input type="checkbox" id="myPostInThread"/> Visa länk till alla mina inlägg i nuvarande tråd<br/>\
+<input type="checkbox" id="showImages" title="Du måste använda fixLinks tillsammans med showImages"/> Visa bilder<br/>\
+<input type="checkbox" id="keyShorts"/> Aktivera tangentbords-styrning<br/>\
 </div>\
 </div>\
 <div style="position:absolute; bottom:5px; width: 200px; left: 50%; margin-left: -100px; text-align: center;"><a href="#" id="closeToolboxSettings">Spara, stäng och ladda om sidan</a></div>\
@@ -337,6 +342,10 @@ $('#tabs ul li a').click(function(){
 		$('#debugMode').attr('checked','checked');
 	if($.cookie('removeTop') == "true")
 		$('#removeTop').attr('checked','checked');
+	if(!($.cookie('updateTime') == null))
+		$('#updateTime').val(updateTime/1000);
+	else
+		$('#updateTime').val('1');
 	if($.cookie('stopGif') == "true")
 		$('#stopGif').attr('checked','checked');
 	if($.cookie('checkPM') == "true")
@@ -445,9 +454,11 @@ $('#tabs ul li a').click(function(){
 			if(aLink) {
 				if(aLink.indexOf("leave.php?u=") > 0) {
 					aLink = aLink.substring(38);
-					$(this).attr('href', decodeURIComponent(aLink));
+					aLink = decodeURIComponent (aLink);
+					aLink = aLink.replace (/&amp;/gi, "&");
+					$(this).attr('href', aLink);
 					if(debug)
-						console.log("Fixed this link: "+$(this).prop('href'));
+						console.log("Fixed this link: "+$(this).prop('href')+" to this: "+aLink);
 				}
 
 			}
@@ -612,6 +623,10 @@ $('#tabs ul li a').click(function(){
 		} else {
 			$.cookie('debugMode', 'false', { expires: 1000 });
 		}
+
+		var updateTime = $('#updateTime').val();
+		$.cookie('updateTime', updateTime, { expires: 1000 });
+
 		if ($('#removeTop').attr('checked')) {
 			$.cookie('removeTop', 'true', { expires: 1000 });
 		} else {

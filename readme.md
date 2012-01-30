@@ -65,7 +65,8 @@ Citera markerat inlägg
 
 ###0.1.2
 Om du kör en gammal version så dyker det upp en liten popup och berättar att det finns en nyare version.
-
+Fixade bugg med & och fixLinks.
+Nu kan man ställa in hur ofta checkPM och checkQuote ska uppdateras
 
 ###0.1.1
 Nytt är fixLinks, myPostInThread, hetaAmnenMod, showImages, keyShorts och ett antal buggfixar när det gäller checkQuote. Funktionen är dock inte helt failsafe ännu.
