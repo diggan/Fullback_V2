@@ -766,10 +766,7 @@ $('#tabs ul li a').click(function(){
 				    // Animation complete.
 				  });
 	        }
- 	     },
-	     error:function(){
-	         alert("Error");
-	     },
+ 	     }
 	});
 
 });
