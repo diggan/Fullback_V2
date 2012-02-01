@@ -3,7 +3,7 @@
 // @namespace      flashback
 // @description    Skriptet för dig som önskar att Flashback var så mycket mera
 // @include        https://www.flashback.org/*
-// @version        0.1.2
+// @version        0.1.3
 // ==/UserScript==
 
 /*! jQuery v1.7.1 jquery.com | jquery.org/license */
@@ -247,7 +247,7 @@ else
 
 
 //Local version
-var versionLocal = "0.1.2";
+var versionLocal = "0.1.3";
 
 // When page have loaded
 $(document).ready(function() {
@@ -292,6 +292,7 @@ z-index: 12; top: 100px; left: 50%; display: none; box-shadow: 0px 0px 5px #FFF;
 <input type="checkbox" id="myPostInThread"/> Visa länk till alla mina inlägg i nuvarande tråd<br/>\
 <input type="checkbox" id="showImages" title="Du måste använda fixLinks tillsammans med showImages"/> Visa bilder<br/>\
 <input type="checkbox" id="keyShorts"/> Aktivera tangentbords-styrning<br/>\
+<input type="checkbox" id="goToTop"/> Aktivera "Gå till toppen"-länk vid inlägg<br/>\
 </div>\
 </div>\
 <div style="position:absolute; bottom:5px; width: 200px; left: 50%; margin-left: -100px; text-align: center;"><a href="#" id="closeToolboxSettings">Spara, stäng och ladda om sidan</a></div>\
@@ -364,6 +365,9 @@ $('#tabs ul li a').click(function(){
 		$('#showImages').attr('checked','checked');	
 	if($.cookie('keyShorts') == "true")
 		$('#keyShorts').attr('checked','checked');
+	if($.cookie('goToTop') == "true")
+		$('#goToTop').attr('checked','checked');
+		
 
 	//Remove #top
 	if($.cookie('removeTop') == "true")
@@ -605,6 +609,13 @@ $('#tabs ul li a').click(function(){
 			input.val(tmpStr);
 		}
 	}
+	if($.cookie('goToTop') == "true") {
+		$('table[id^="post"]').hover(function(){
+			$('<a href="#top" class="topLink" style="position: absolute; margin-top: -17px; margin-left: 4px;">Gå till toppen</a>').hide().appendTo(this).delay(100).fadeIn();
+		}, function(){
+			$('.topLink').delay(400).fadeOut();
+		});
+	}
 	// ======================
 
 	//openToolboxSettings
@@ -676,6 +687,11 @@ $('#tabs ul li a').click(function(){
 			$.cookie('keyShorts', 'true', { expires: 1000 });
 		} else {
 			$.cookie('keyShorts', 'false', { expires: 1000 });
+		} 
+		if ($('#goToTop').attr('checked')) {
+			$.cookie('goToTop', 'true', { expires: 1000 });
+		} else {
+			$.cookie('goToTop', 'false', { expires: 1000 });
 		}
 
 		$('#settingsDialog').fadeOut('Slow', function(){

@@ -38,7 +38,7 @@ Tillåter dig att ändra vilka av de olika kategorierna på heta ämnen som ska 
 ###showImages
 Visar bilder direkt i tråden.
 
-##keyShorts
+###keyShorts
 
 Gör så att du kan navigera på Flashback med bara tangentbordet
 
@@ -61,7 +61,13 @@ Se föregående inlägg i tråden
 **CTRL + C**
 Citera markerat inlägg
 
+###goToTop
+Lägger till en länk till toppen av sidan vid varje inlägg som du håller musen över.
+
 ##Version
+
+###0.1.3
+goToTop
 
 ###0.1.2
 Om du kör en gammal version så dyker det upp en liten popup och berättar att det finns en nyare version.
